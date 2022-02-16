@@ -49,7 +49,7 @@ const listNotes = () => {
   const notes = loadNotes();
   console.log(`Printing ${notes.length} note(s)`);
   notes.forEach((note) => {
-    console.log(note.title);
+    console.log(`Title: ${note.title} Body: ${note.body}`);
   });
 };
 // Read Note
@@ -60,8 +60,7 @@ const readNote = (title) => {
     console.log('Note not found');
     return;
   }
-  console.log(note.title);
-  console.log(note.body);
+  console.log(`Title: ${note.title} Body: ${note.body}`);
 };
 
 module.exports = {
