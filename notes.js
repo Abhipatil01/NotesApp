@@ -1,4 +1,14 @@
 const fs = require('fs');
+const chalk = require('chalk');
+
+// console log with color
+const log = (message, color) => {
+  if (color) {
+    console.log(chalk[color].inverse(message));
+  } else {
+    console.log(message);
+  }
+};
 
 // load notes
 const loadNotes = () => {
@@ -22,7 +32,7 @@ const addNote = (title, body) => {
   const notes = loadNotes();
   const duplicateNote = notes.some((note) => note.title === title);
   if (duplicateNote) {
-    console.log('Note title taken');
+    log('Note title taken', 'red');
     return;
   }
   notes.push({
@@ -30,7 +40,7 @@ const addNote = (title, body) => {
     body,
   });
   saveNotes(notes);
-  console.log('Note added');
+  log('Note added', 'green');
 };
 
 // Remove Note
@@ -38,18 +48,18 @@ const removeNote = (title) => {
   const notes = loadNotes();
   const notesToKeep = notes.filter((note) => note.title !== title);
   if (notes.length === notesToKeep.length) {
-    console.log('Note not found');
+    log('Note not found', 'red');
     return;
   }
   saveNotes(notesToKeep);
-  console.log('Note removed');
+  log('Note removed', 'green');
 };
 // List Notes
 const listNotes = () => {
   const notes = loadNotes();
-  console.log(`Printing ${notes.length} note(s)`);
+  log(`Printing ${notes.length} note(s)`, 'green');
   notes.forEach((note) => {
-    console.log(`Title: ${note.title} Body: ${note.body}`);
+    log(`Title: ${note.title} Body: ${note.body}`);
   });
 };
 // Read Note
@@ -57,10 +67,10 @@ const readNote = (title) => {
   const notes = loadNotes();
   const note = notes.find((note) => note.title === title);
   if (!note) {
-    console.log('Note not found');
+    log('Note not found', 'red');
     return;
   }
-  console.log(`Title: ${note.title} Body: ${note.body}`);
+  log(`Title: ${note.title} Body: ${note.body}`);
 };
 
 module.exports = {
